@@ -5,13 +5,14 @@ const data = require("../data.json");
 
 async function addProductData() {
   try {
+    await prisma.$connect();
     const hasProducts = await prisma.product.count();
     if (!hasProducts) {
       const createManyResult = await prisma.product.createMany({
         data,
       });
       console.log(
-        `${createManyResult.count} records in product was successfully added`,
+        `${createManyResult.count} records in product was successfully added`
       );
     }
   } catch (error) {
